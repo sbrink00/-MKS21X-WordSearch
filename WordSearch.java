@@ -34,15 +34,36 @@ public class WordSearch{
     boolean conditional1 = false;
     boolean conditional2 = false;
     if (row >=0 && col >= 0 && row < data.length)  conditional1 = true;
-    if (conditional1 && data[row].length - col >= word.length()) conditional2 = true;
+    if (conditional1 && col <data[row].length && data[row].length - col >= word.length()) conditional2 = true;
     if (conditional1 && conditional2) add = true;
     if (add){
-      int idx2 = col;
+      int idx = col;
       int wordIndex = 0;
       while (wordIndex < word.length()){
-        if (data[row][idx2] == '_') data[row][idx2] = word.charAt(wordIndex);
+        if (data[row][idx] == '_') data[row][idx] = word.charAt(wordIndex);
         else return false;
-        idx2 ++;
+        idx ++;
+        wordIndex ++;
+      }
+      return true;
+    }
+    return false;
+  }
+
+  public boolean addWordVertically(String word, int row, int col){
+    boolean add = false;
+    boolean conditional1 = false;
+    boolean conditional2 = false;
+    if (row >=0 && col >= 0 && row < data.length)  conditional1 = true;
+    if (conditional1 && col <data[row].length && data.length - row >= word.length()) conditional2 = true;
+    if (conditional1 && conditional2) add = true;
+    if (add){
+      int idx = row;
+      int wordIndex = 0;
+      while (wordIndex < word.length()){
+        if (data[idx][col] == '_') data[idx][col] = word.charAt(wordIndex);
+        else return false;
+        idx ++;
         wordIndex ++;
       }
       return true;
