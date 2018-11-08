@@ -29,7 +29,7 @@ public class WordSearch{
     return output;
   }
 
-  public boolean addWordHorizontally(String word, int row, int col){
+  public boolean addWordHorizontal(String word, int row, int col){
     boolean add = false;
     boolean conditional1 = false;
     boolean conditional2 = false;
@@ -50,7 +50,7 @@ public class WordSearch{
     return false;
   }
 
-  public boolean addWordVertically(String word, int row, int col){
+  public boolean addWordVertical(String word, int row, int col){
     boolean add = false;
     boolean conditional1 = false;
     boolean conditional2 = false;
