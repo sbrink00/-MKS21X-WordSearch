@@ -1,13 +1,25 @@
+import java.util.*;
+import java.io.*;
 public class WordSearch{
   private char[][] data;
+  private int seed;
+  private ArrayList<String>wordsToAdd;
+  private ArrayList<String>wordsAdded;
 
-  public WordSearch(int rows, int cols){
+  public WordSearch(int rows, int cols, String fileName) throws FileNotFoundException{
     data = new char[rows][cols];
+    wordsToAdd = new ArrayList<String>();
+    wordsAdded = new ArrayList<String>();
     for (int idx = 0; idx < data.length; idx ++){
       for (int idx2 = 0; idx2 < data[idx].length; idx2 ++){
         data[idx][idx2] = '_';
       }
     }
+    //File f = new File(fileName);
+    Scanner in = new Scanner(new File(fileName));
+    while (in.hasNext()) wordsToAdd.add(in.next());
+    //System.out.println(wordsToAdd);
+    addAllWords();
   }
 
   private void clear(){
@@ -18,15 +30,50 @@ public class WordSearch{
     }
   }
 
+  private boolean addAllWords(){
+    Random word = new Random();
+    Random ro = new Random();
+    Random c = new Random();
+    Random rd = new Random(2);
+    Random cd = new Random(3);
+    int counter = 0;
+    while (counter < 50 && !wordsToAdd.isEmpty()){
+      for (int idx = 0; idx < 100; idx ++){
+        String letters = wordsToAdd.get(word.nextInt(wordsToAdd.size()));
+        if (addWord(letters, ro.nextInt(data.length), c.nextInt(data[0].length), rd.nextInt() % 2, cd.nextInt() % 2)){
+          wordsAdded.add(letters);
+          wordsToAdd.remove(letters);
+          counter = 0;
+        }
+        else counter ++;
+      }
+    }
+    return false;
+  }
+
+  public boolean addWord(String word, int row, int col, int rowIncrement, int colIncrement){
+    int idx = row;
+    int idx2 = col;
+    for (int wIdx = 0; wIdx < word.length(); wIdx ++){
+      if (data[idx][idx2] == word.charAt(wIdx) || data[idx][idx2] == '_'){
+        data[idx][idx2] = word.charAt(wIdx);
+        idx += rowIncrement;
+        idx2 += colIncrement;
+      }
+      else return false;
+    }
+    return true;
+  }
+
   public String toString(){
-    String output = "";
+    String output = "|";
     for (int idx = 0; idx < data.length; idx ++){
       for (int idx2 = 0; idx2 < data[idx].length; idx2 ++){
         output += data[idx][idx2] + " ";
       }
-      output += "\n";
+      output += "|\n|";
     }
-    return output;
+    return output.substring(0, output.length() - 1);
   }
 
   public boolean addWordHorizontal(String word, int row, int col){
