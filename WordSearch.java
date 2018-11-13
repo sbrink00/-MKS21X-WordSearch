@@ -23,7 +23,6 @@ public class WordSearch{
     }
     Scanner in = new Scanner(new File(fileName));
     while (in.hasNext()) wordsToAdd.add(in.next().toUpperCase());
-    System.out.println(wordsToAdd);
     addAllWords();
   }
 
