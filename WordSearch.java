@@ -14,7 +14,6 @@ public class WordSearch{
   public WordSearch(int rows, int cols, String fileName) throws FileNotFoundException{
     data = new char[rows][cols];
     wordsToAdd = new ArrayList<String>();
-    wordsToAdd.add("convoluted");
     wordsAdded = new ArrayList<String>();
     for (int idx = 0; idx < data.length; idx ++){
       for (int idx2 = 0; idx2 < data[idx].length; idx2 ++){
@@ -25,7 +24,7 @@ public class WordSearch{
     Scanner in = new Scanner(new File(fileName));
     while (in.hasNext()) wordsToAdd.add(in.next());
     //System.out.println(wordsToAdd);
-    //addAllWords();
+    addAllWords();
   }
 
   private void clear(){
@@ -37,7 +36,12 @@ public class WordSearch{
   }
 
   private boolean addAllWords(){
-    Random word = new Random();
+    int r = 0;
+    while (!wordsToAdd.isEmpty()){
+      addWord(wordsToAdd.get(0), r, 0, 0, 1);
+      r ++;
+    }
+    /*Random word = new Random();
     Random ro = new Random();
     Random c = new Random();
     Random rd = new Random(2);
@@ -54,7 +58,8 @@ public class WordSearch{
         else counter ++;
       }
     }
-    return false;
+    return false;*/
+    return true;
   }
 
   public boolean addWord(String word, int row, int col, int rowIncrement, int colIncrement){
