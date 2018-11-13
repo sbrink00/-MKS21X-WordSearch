@@ -14,6 +14,7 @@ public class WordSearch{
   public WordSearch(int rows, int cols, String fileName) throws FileNotFoundException{
     data = new char[rows][cols];
     wordsToAdd = new ArrayList<String>();
+    wordsToAdd.add("convoluted");
     wordsAdded = new ArrayList<String>();
     for (int idx = 0; idx < data.length; idx ++){
       for (int idx2 = 0; idx2 < data[idx].length; idx2 ++){
@@ -56,8 +57,6 @@ public class WordSearch{
     return false;
   }
 
-
-  //("p", 1, 1, 0, 1)
   public boolean addWord(String word, int row, int col, int rowIncrement, int colIncrement){
     if (rowIncrement == 0 && colIncrement == 0) return false;
     int rIdx = row;
@@ -72,7 +71,6 @@ public class WordSearch{
       }
       else canAdd = false;
     }
-    System.out.println(canAdd);
     if (canAdd) add = true;
     if (add){
       rIdx = row;
@@ -82,172 +80,13 @@ public class WordSearch{
         rIdx += rowIncrement;
         cIdx += colIncrement;
       }
-      System.out.println(true);
+      int pos = wordsToAdd.indexOf(word);
+      wordsAdded.add(wordsToAdd.remove(pos));
       return true;
     }
-    else{
-      System.out.println(false);
-      return false;
-    }
+    else return false;
   }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  /*public boolean addWord(String word, int row, int col, int rowIncrement, int colIncrement){
-    int idx = row;
-    int idx2 = col;
-    boolean maybe = true;
-    boolean add = false;
-    if (idx >= 0 && idx2 >= 0 && idx < data.length && idx < data[0].length){
-      for (int wIdx = 0; wIdx < word.length(); wIdx ++){
-        if (idx >= 0 && idx2 >= 0 && idx < data.length && idx < data[0].length){
-          if (!(word.charAt(wIdx) == '_' || word.charAt(wIdx) == data[idx][idx2])) maybe = false;
-        }
-        idx += rowIncrement;
-        idx2 += colIncrement;
-      }
-      idx = row;
-      idx2 = col;
-      if (maybe) add = true;
-    }
-    if (add){
-      for (int wIdx = 0; wIdx < word.length(); wIdx ++){
-        data[idx][idx2] = word.charAt(wIdx);
-        idx += rowIncrement;
-        idx2 += colIncrement;
-      }
-      return true;
-    }
-    return false;
-  }*/
 
 
 
