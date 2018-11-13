@@ -36,11 +36,13 @@ public class WordSearch{
   }
 
   private boolean addAllWords(){
-    int r = 0;
-    Random pos = new Random();
+    int idx = 0;
+    Random r = new Random();
     while (!wordsToAdd.isEmpty()){
-      addWord(wordsToAdd.get(pos.nextInt(wordsToAdd.size())), r, 0, 0, 1);
-      r ++;
+      String letters = wordsToAdd.get(r.nextInt(wordsToAdd.size()));
+      int rIdx = r.nextInt(data.length);
+      int cIdx = r.nextInt(data[0].length);
+      System.out.println(addWord(letters, rIdx, cIdx, 0, 1));
     }
     /*Random word = new Random();
     Random ro = new Random();
