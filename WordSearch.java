@@ -37,8 +37,9 @@ public class WordSearch{
 
   private boolean addAllWords(){
     int r = 0;
+    Random pos = new Random();
     while (!wordsToAdd.isEmpty()){
-      addWord(wordsToAdd.get(0), r, 0, 0, 1);
+      addWord(wordsToAdd.get(pos.nextInt(wordsToAdd.size())), r, 0, 0, 1);
       r ++;
     }
     /*Random word = new Random();
