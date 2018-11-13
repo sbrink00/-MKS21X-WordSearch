@@ -33,7 +33,6 @@ public class WordSearch{
       int cInc = randgen.nextInt(3) - 1;
       int rInc = randgen.nextInt(3) - 1;
       String letters = wordsToAdd.get(randgen.nextInt(wordsToAdd.size()));
-      System.out.println(letters);
       for (int idx = 0; idx < 100 & !added; idx ++){
         int rIdx = randgen.nextInt(data.length);
         int cIdx = randgen.nextInt(data[0].length);
