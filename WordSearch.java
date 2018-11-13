@@ -12,6 +12,7 @@ public class WordSearch{
   private ArrayList<String>wordsAdded;
 
   public WordSearch(int rows, int cols, String fileName) throws FileNotFoundException{
+    randgen = new Random();
     data = new char[rows][cols];
     wordsToAdd = new ArrayList<String>();
     wordsAdded = new ArrayList<String>();
@@ -37,14 +38,17 @@ public class WordSearch{
 
   private boolean addAllWords(){
     int idx = 0;
-    Random r = new Random();
-    while (!wordsToAdd.isEmpty()){
-      String letters = wordsToAdd.get(r.nextInt(wordsToAdd.size()));
-      int rIdx = r.nextInt(data.length);
-      int cIdx = r.nextInt(data[0].length);
-      int cInc = r.nextInt(3) - 1;
-      int rInc = r.nextInt(3) - 1;
-      System.out.println(addWord(letters, rIdx, cIdx, rInc, cInc));
+    int counter = 0;
+    while (!wordsToAdd.isEmpty() && counter < 50){
+      String letters = wordsToAdd.get(randgen.nextInt(wordsToAdd.size()));
+      int rIdx = randgen.nextInt(data.length);
+      int cIdx = randgen.nextInt(data[0].length);
+      int cInc = randgen.nextInt(3) - 1;
+      int rInc = randgen.nextInt(3) - 1;
+      if (!addWord(letters, rIdx, cIdx, rInc, cInc)) counter ++;
+      else counter = 0;
+      System.out.println(counter);
+      //System.out.println(addWord(letters, rIdx, cIdx, rInc, cInc));
     }
     /*Random word = new Random();
     Random ro = new Random();
