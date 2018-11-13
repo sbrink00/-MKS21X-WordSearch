@@ -1,8 +1,13 @@
+//have addword do all the checks
+//have add all words only do the certain
+//number of tries per word and then the
+//total number of tries until failure
 import java.util.*;
 import java.io.*;
 public class WordSearch{
   private char[][] data;
   private int seed;
+  private Random randgen;
   private ArrayList<String>wordsToAdd;
   private ArrayList<String>wordsAdded;
 
@@ -19,7 +24,7 @@ public class WordSearch{
     Scanner in = new Scanner(new File(fileName));
     while (in.hasNext()) wordsToAdd.add(in.next());
     //System.out.println(wordsToAdd);
-    addAllWords();
+    //addAllWords();
   }
 
   private void clear(){
@@ -51,19 +56,201 @@ public class WordSearch{
     return false;
   }
 
+
+  //("p", 1, 1, 0, 1)
   public boolean addWord(String word, int row, int col, int rowIncrement, int colIncrement){
+    if (rowIncrement == 0 && colIncrement == 0) return false;
+    int rIdx = row;
+    int cIdx = col;
+    boolean add = false;
+    boolean canAdd = true;
+    for (int wIdx = 0; wIdx < word.length(); wIdx ++){
+      if (rIdx >= 0 && cIdx >= 0 && rIdx < data.length && cIdx < data[0].length){
+        if (!(word.charAt(wIdx) == data[rIdx][cIdx] || data[rIdx][cIdx] == '_')) canAdd = false;
+        rIdx += rowIncrement;
+        cIdx += colIncrement;
+      }
+      else canAdd = false;
+    }
+    System.out.println(canAdd);
+    if (canAdd) add = true;
+    if (add){
+      rIdx = row;
+      cIdx = col;
+      for (int wIdx = 0; wIdx < word.length(); wIdx ++){
+        data[rIdx][cIdx] = word.charAt(wIdx);
+        rIdx += rowIncrement;
+        cIdx += colIncrement;
+      }
+      System.out.println(true);
+      return true;
+    }
+    else{
+      System.out.println(false);
+      return false;
+    }
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  /*public boolean addWord(String word, int row, int col, int rowIncrement, int colIncrement){
     int idx = row;
     int idx2 = col;
-    for (int wIdx = 0; wIdx < word.length(); wIdx ++){
-      if (data[idx][idx2] == word.charAt(wIdx) || data[idx][idx2] == '_'){
+    boolean maybe = true;
+    boolean add = false;
+    if (idx >= 0 && idx2 >= 0 && idx < data.length && idx < data[0].length){
+      for (int wIdx = 0; wIdx < word.length(); wIdx ++){
+        if (idx >= 0 && idx2 >= 0 && idx < data.length && idx < data[0].length){
+          if (!(word.charAt(wIdx) == '_' || word.charAt(wIdx) == data[idx][idx2])) maybe = false;
+        }
+        idx += rowIncrement;
+        idx2 += colIncrement;
+      }
+      idx = row;
+      idx2 = col;
+      if (maybe) add = true;
+    }
+    if (add){
+      for (int wIdx = 0; wIdx < word.length(); wIdx ++){
         data[idx][idx2] = word.charAt(wIdx);
         idx += rowIncrement;
         idx2 += colIncrement;
       }
-      else return false;
+      return true;
     }
-    return true;
-  }
+    return false;
+  }*/
+
+
+
 
   public String toString(){
     String output = "|";
