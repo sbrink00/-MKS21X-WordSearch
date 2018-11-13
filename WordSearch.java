@@ -42,7 +42,9 @@ public class WordSearch{
       String letters = wordsToAdd.get(r.nextInt(wordsToAdd.size()));
       int rIdx = r.nextInt(data.length);
       int cIdx = r.nextInt(data[0].length);
-      System.out.println(addWord(letters, rIdx, cIdx, 0, 1));
+      int cInc = r.nextInt(3) - 1;
+      int rInc = r.nextInt(3) - 1;
+      System.out.println(addWord(letters, rIdx, cIdx, rInc, cInc));
     }
     /*Random word = new Random();
     Random ro = new Random();
