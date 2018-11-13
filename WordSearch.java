@@ -37,19 +37,32 @@ public class WordSearch{
   }
 
   private boolean addAllWords(){
-    int idx = 0;
+    System.out.println(wordsToAdd);
+    System.out.println(wordsAdded);
     int counter = 0;
     while (!wordsToAdd.isEmpty() && counter < 50){
-      String letters = wordsToAdd.get(randgen.nextInt(wordsToAdd.size()));
-      int rIdx = randgen.nextInt(data.length);
-      int cIdx = randgen.nextInt(data[0].length);
+      boolean added = false;
       int cInc = randgen.nextInt(3) - 1;
       int rInc = randgen.nextInt(3) - 1;
-      if (!addWord(letters, rIdx, cIdx, rInc, cInc)) counter ++;
-      else counter = 0;
-      System.out.println(counter);
+      String letters = wordsToAdd.get(randgen.nextInt(wordsToAdd.size()));
+      System.out.println(letters);
+      for (int idx = 0; idx < 100 & !added; idx ++){
+        System.out.println("idx: " + idx);
+        int rIdx = randgen.nextInt(data.length);
+        int cIdx = randgen.nextInt(data[0].length);
+        if (addWord(letters, rIdx, cIdx, rInc, cInc)){
+          added = true;
+          counter = 0;
+        }
+      }
+      if (!added) counter ++;
+      System.out.println("counter: " + counter);
       //System.out.println(addWord(letters, rIdx, cIdx, rInc, cInc));
     }
+    System.out.println(wordsToAdd);
+    System.out.println(wordsAdded);
+    return false;
+  }
     /*Random word = new Random();
     Random ro = new Random();
     Random c = new Random();
@@ -68,8 +81,7 @@ public class WordSearch{
       }
     }
     return false;*/
-    return true;
-  }
+
 
   public boolean addWord(String word, int row, int col, int rowIncrement, int colIncrement){
     if (rowIncrement == 0 && colIncrement == 0) return false;
