@@ -8,7 +8,32 @@ public class WordSearch{
   private ArrayList<String>wordsAdded;
 
   public WordSearch(int rows, int cols, String fileName){
-    randgen = new Random();
+    seed = (int)(Math.random()*1000);
+    System.out.println("This is your seed: " + seed);
+    randgen = new Random(seed);
+    data = new char[rows][cols];
+    wordsToAdd = new ArrayList<String>();
+    wordsAdded = new ArrayList<String>();
+    for (int idx = 0; idx < data.length; idx ++){
+      for (int idx2 = 0; idx2 < data[idx].length; idx2 ++){
+        data[idx][idx2] = '_';
+      }
+    }
+    try{
+      Scanner in = new Scanner(new File(fileName));
+      while (in.hasNext()) wordsToAdd.add(in.next().toUpperCase());
+      addAllWords();
+
+    }catch (FileNotFoundException e){
+      System.out.println("File not found: " + fileName);
+      System.exit(0);
+    }
+  }
+
+  public WordSearch(int rows, int cols, String fileName, int randSeed){
+    seed = randSeed;
+    System.out.println("This is your seed: " + seed);
+    randgen = new Random(randSeed);
     data = new char[rows][cols];
     wordsToAdd = new ArrayList<String>();
     wordsAdded = new ArrayList<String>();
