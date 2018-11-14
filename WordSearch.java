@@ -6,10 +6,49 @@ public class WordSearch{
   private Random randgen;
   private ArrayList<String>wordsToAdd;
   private ArrayList<String>wordsAdded;
+  private static String instructions;
 
-  public WordSearch(int rows, int cols, String fileName){
+  public static void main(String[]args){
+      instructions = "This program can be used with three, four, or five arguments\n3 arguments:\n arg 1 - number that represents number of rows\n arg 2 - number that represents number of columns\n arg 3 - string that is the file name you wish to use. This file must exist within the directory of the wordsearch\n4 arguments:\n the first three arguments are the same as when you are only using three arguments\n arg 4 - number that will be a random seed so you can recreate the same wordsearch";
+      WordSearch output;
+      try{
+        if (args.length > 2){
+          int r = Integer.parseInt(args[0]);
+          int c = Integer.parseInt(args[1]);
+        }
+        if (args.length > 3){
+          int r = Integer.parseInt(args[3]);
+        }
+      }
+      catch (NumberFormatException e){
+        System.out.println(instructions);
+        System.exit(0);
+      }
+      if (args.length > 2 && (Integer.parseInt(args[0]) < 0 || Integer.parseInt(args[1]) < 0)){
+        System.out.println(instructions);
+        System.exit(0);
+      }
+      if (Integer.parseInt(args[0]) < 0 || Integer.parseInt(args[1]) < 0){
+        System.out.println(instructions);
+        System.exit(0);
+      }
+      if (args.length == 3){
+        output = new WordSearch(Integer.parseInt(args[0]), Integer.parseInt(args[1]), args[2], (int)(Math.random() * 10000), "");
+        System.out.println(output);
+      }
+      if (args.length == 4){
+        output = new WordSearch(Integer.parseInt(args[0]), Integer.parseInt(args[1]), args[2], Integer.parseInt(args[3]), "");
+        System.out.println(output);
+      }
+      if (args.length == 5){
+        output = new WordSearch(Integer.parseInt(args[0]), Integer.parseInt(args[1]), args[2], Integer.parseInt(args[3]), args[4]);
+        System.out.println(output);
+      }
+
+    }
+
+  /*WordSearch(int rows, int cols, String fileName){
     seed = (int)(Math.random()*1000);
-    System.out.println("This is your seed: " + seed);
     randgen = new Random(seed);
     data = new char[rows][cols];
     wordsToAdd = new ArrayList<String>();
@@ -24,12 +63,14 @@ public class WordSearch{
       while (in.hasNext()) wordsToAdd.add(in.next().toUpperCase());
       addAllWords();
       printWordsInSearch();
+      System.out.println("This is your seed: " + seed);
 
     }catch (FileNotFoundException e){
-      System.out.println("File not found: " + fileName);
+      System.out.println(instructions);
       System.exit(0);
     }
-  }
+
+  }*/
 
   public WordSearch(int rows, int cols, String fileName, int randSeed, String answers){
     seed = randSeed;
@@ -51,7 +92,7 @@ public class WordSearch{
       printWordsInSearch();
 
     }catch (FileNotFoundException e){
-      System.out.println("File not found: " + fileName);
+      System.out.println(instructions);
       System.exit(0);
     }
   }
@@ -141,6 +182,14 @@ public class WordSearch{
     for (int rIdx = 0; rIdx < data.length; rIdx ++){
       for (int cIdx = 0; cIdx < data[0].length; cIdx ++){
         if (data[rIdx][cIdx] == '_') data[rIdx][cIdx] = alphabet.charAt(randgen.nextInt(26));
+      }
+    }
+  }
+
+  private void fillInSpaces(){
+    for (int rIdx = 0; rIdx < data.length; rIdx ++){
+      for (int cIdx = 0; cIdx < data[0].length; cIdx ++){
+        data[rIdx][cIdx] = ' ';
       }
     }
   }
