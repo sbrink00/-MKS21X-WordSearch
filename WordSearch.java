@@ -88,7 +88,8 @@ public class WordSearch{
       Scanner in = new Scanner(new File(fileName));
       while (in.hasNext()) wordsToAdd.add(in.next().toUpperCase());
       addAllWords();
-      if (!answers.equals("key")) fillInLetters();
+      if (answers.equals("key")) fillInSpaces();
+      else fillInLetters();
       printWordsInSearch();
 
     }catch (FileNotFoundException e){
@@ -173,10 +174,6 @@ public class WordSearch{
     }
   }
 
-  //this method isn't going to be used yet,
-  //but eventually in order to have a completed
-  //wordsearch the rest of the slots need
-  //to be filled in with random letters.
   private void fillInLetters(){
     String alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     for (int rIdx = 0; rIdx < data.length; rIdx ++){
@@ -189,7 +186,7 @@ public class WordSearch{
   private void fillInSpaces(){
     for (int rIdx = 0; rIdx < data.length; rIdx ++){
       for (int cIdx = 0; cIdx < data[0].length; cIdx ++){
-        data[rIdx][cIdx] = ' ';
+        if (data[rIdx][cIdx] == '_') data[rIdx][cIdx] = ' ';
       }
     }
   }
