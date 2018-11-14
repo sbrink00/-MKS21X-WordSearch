@@ -1,7 +1,3 @@
-//have addword do all the checks
-//have add all words only do the certain
-//number of tries per word and then the
-//total number of tries until failure
 import java.util.*;
 import java.io.*;
 public class WordSearch{
@@ -11,7 +7,7 @@ public class WordSearch{
   private ArrayList<String>wordsToAdd;
   private ArrayList<String>wordsAdded;
 
-  public WordSearch(int rows, int cols, String fileName) throws FileNotFoundException{
+  public WordSearch(int rows, int cols, String fileName){
     randgen = new Random();
     data = new char[rows][cols];
     wordsToAdd = new ArrayList<String>();
@@ -21,9 +17,15 @@ public class WordSearch{
         data[idx][idx2] = '_';
       }
     }
-    Scanner in = new Scanner(new File(fileName));
-    while (in.hasNext()) wordsToAdd.add(in.next().toUpperCase());
-    addAllWords();
+    try{
+      Scanner in = new Scanner(new File(fileName));
+      while (in.hasNext()) wordsToAdd.add(in.next().toUpperCase());
+      addAllWords();
+
+    }catch (FileNotFoundException e){
+      System.out.println("File not found: " + fileName);
+      System.exit(0);
+    }
   }
 
   private void addAllWords(){
