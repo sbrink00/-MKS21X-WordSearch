@@ -31,7 +31,7 @@ public class WordSearch{
     }
   }
 
-  public WordSearch(int rows, int cols, String fileName, int randSeed){
+  public WordSearch(int rows, int cols, String fileName, int randSeed, String answers){
     seed = randSeed;
     System.out.println("This is your seed: " + seed);
     randgen = new Random(randSeed);
@@ -47,6 +47,7 @@ public class WordSearch{
       Scanner in = new Scanner(new File(fileName));
       while (in.hasNext()) wordsToAdd.add(in.next().toUpperCase());
       addAllWords();
+      if (!answers.equals("key")) fillInLetters();
       printWordsInSearch();
 
     }catch (FileNotFoundException e){
