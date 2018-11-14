@@ -23,6 +23,7 @@ public class WordSearch{
       Scanner in = new Scanner(new File(fileName));
       while (in.hasNext()) wordsToAdd.add(in.next().toUpperCase());
       addAllWords();
+      printWordsInSearch();
 
     }catch (FileNotFoundException e){
       System.out.println("File not found: " + fileName);
@@ -46,6 +47,7 @@ public class WordSearch{
       Scanner in = new Scanner(new File(fileName));
       while (in.hasNext()) wordsToAdd.add(in.next().toUpperCase());
       addAllWords();
+      printWordsInSearch();
 
     }catch (FileNotFoundException e){
       System.out.println("File not found: " + fileName);
@@ -111,6 +113,14 @@ public class WordSearch{
       output += "|\n|";
     }
     return output.substring(0, output.length() - 1);
+  }
+
+  public void printWordsInSearch(){
+    String output = "Words: ";
+    for (int idx = 0; idx < wordsAdded.size(); idx ++){
+      output += wordsAdded.get(idx) + "  ";
+    }
+    System.out.println(output);
   }
 
   private void clear(){
