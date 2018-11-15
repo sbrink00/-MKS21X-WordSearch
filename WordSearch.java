@@ -9,7 +9,7 @@ public class WordSearch{
   private static String instructions;
 
   public static void main(String[]args){
-      instructions = "This program can be used with three, four, or five arguments\n3 arguments:\n arg 1 - number that represents number of rows\n arg 2 - number that represents number of columns\n arg 3 - string that is the file name you wish to use. This file must exist within the directory of the wordsearch\n4 arguments:\n the first three arguments are the same as when you are only using three arguments\n arg 4 - number that will be a random seed so you can recreate the same wordsearch";
+      instructions = "This program can be used with three, four, or five arguments\n arg 1 is the number of rows. It must be an int greater than 0.\n arg 2 is the number of columns. It must be a int greater than 0.\n arg 3 is a string that is the name of the file you wish to use. This file must exist within the directory of the wordsearch class\n the optional 4th argument is an int between 0 and 10000 inclusive that is the random seed you wish to use. Use this argument if you want a reproducible search.\n arg 5 is and optional string. If you enter key, it will give you the answer key";
       WordSearch output;
       try{
         if (args.length > 2){
@@ -24,11 +24,15 @@ public class WordSearch{
         System.out.println(instructions);
         System.exit(0);
       }
-      if (args.length > 2 && (Integer.parseInt(args[0]) < 0 || Integer.parseInt(args[1]) < 0)){
+      if (args.length > 2 && (Integer.parseInt(args[0]) < 1 || Integer.parseInt(args[1]) < 1)){
         System.out.println(instructions);
         System.exit(0);
       }
-      if (Integer.parseInt(args[0]) < 0 || Integer.parseInt(args[1]) < 0){
+      if (args.length == 4 && (Integer.parseInt(args[3]) < 0 || Integer.parseInt(args[3]) > 10000)){
+        System.out.println(instructions);
+        System.exit(0);
+      }
+      if (Integer.parseInt(args[0]) < 1 || Integer.parseInt(args[1]) < 1){
         System.out.println(instructions);
         System.exit(0);
       }
