@@ -11,6 +11,10 @@ public class WordSearch{
   public static void main(String[]args){
       instructions = "This program can be used with three, four, or five arguments\n arg 1 is the number of rows. It must be an int greater than 0.\n arg 2 is the number of columns. It must be a int greater than 0.\n arg 3 is a string that is the name of the file you wish to use. This file must exist within the directory of the wordsearch class\n the optional 4th argument is an int between 0 and 10000 inclusive that is the random seed you wish to use. Use this argument if you want a reproducible search.\n arg 5 is and optional string. If you enter key, it will give you the answer key";
       WordSearch output;
+      if (args.length < 3){
+        System.out.println(instructions);
+        System.exit(0);
+      }
       try{
         if (args.length > 2){
           int r = Integer.parseInt(args[0]);
@@ -28,7 +32,7 @@ public class WordSearch{
         System.out.println(instructions);
         System.exit(0);
       }
-      if (args.length == 4 && (Integer.parseInt(args[3]) < 0 || Integer.parseInt(args[3]) > 10000)){
+      if ((args.length == 4 || args.length == 5) && (Integer.parseInt(args[3]) < 0 || Integer.parseInt(args[3]) > 10000)){
         System.out.println(instructions);
         System.exit(0);
       }
@@ -78,7 +82,6 @@ public class WordSearch{
 
   public WordSearch(int rows, int cols, String fileName, int randSeed, String answers){
     seed = randSeed;
-    System.out.println("This is your seed: " + seed);
     randgen = new Random(randSeed);
     data = new char[rows][cols];
     wordsToAdd = new ArrayList<String>();
@@ -94,7 +97,7 @@ public class WordSearch{
       addAllWords();
       if (answers.equals("key")) fillInSpaces();
       else fillInLetters();
-      printWordsInSearch();
+      //printWordsInSearch();
 
     }catch (FileNotFoundException e){
       System.out.println(instructions);
@@ -152,14 +155,18 @@ public class WordSearch{
   }
 
   public String toString(){
-    String output = "|";
+    String output1 = "|";
     for (int idx = 0; idx < data.length; idx ++){
       for (int idx2 = 0; idx2 < data[idx].length; idx2 ++){
-        output += data[idx][idx2] + " ";
+        output1 += data[idx][idx2] + " ";
       }
-      output += "|\n|";
+      output1 += "|\n|";
     }
-    return output.substring(0, output.length() - 1);
+    output1 = output1.substring(0, output1.length() - 1);
+    String output2 = "Words: ";
+    for (int idx = 0; idx < wordsAdded.size(); idx ++) output2 += wordsAdded.get(idx) + ", ";
+    output2 = output2.substring(0, output2.length() - 2) + " (seed: " + seed + ")";
+    return output1 + output2;
   }
 
   public void printWordsInSearch(){
