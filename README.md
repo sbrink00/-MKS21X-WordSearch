@@ -1,2 +1,2 @@
-# -MKS21X-WordSearch
+# MKS21X-WordSearch
 Word Search creator repository
